@@ -1,4 +1,12 @@
 
+class GridWorldEnvInfoView {
+    private gridWorldEnv: GridWorldEnv;
+
+    constructor(gridWorldEnv: GridWorldEnv) {
+        this.gridWorldEnv = gridWorldEnv;
+    }
+}
+
 class GridWorldEnv {
 
     public nRows: number;
@@ -8,6 +16,10 @@ class GridWorldEnv {
     constructor(nRows: number, nCols: number) {
         this.nRows = nRows;
         this.nCols = nCols;
+    }
+
+    public getActions(): string[] {
+        return ["UP", "DOWN"];
     }
 
 }
