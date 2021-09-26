@@ -1,9 +1,21 @@
 
 class GridWorldEnvInfoView {
     private gridWorldEnv: GridWorldEnv;
+    private el: HTMLElement;
 
-    constructor(gridWorldEnv: GridWorldEnv) {
+    constructor(gridWorldEnv: GridWorldEnv, el: HTMLElement) {
         this.gridWorldEnv = gridWorldEnv;
+        this.el = el;
+    }
+
+    render(): HTMLElement {
+        const row = this.gridWorldEnv.curPos[0];
+        const col = this.gridWorldEnv.curPos[1];
+        this.el.innerHTML = `
+            <p>Row: ${row}</p>
+            <p>Col: ${col}</p>
+        `;
+        return this.el;
     }
 }
 
@@ -62,7 +74,7 @@ class GridWorldEnvView {
         for (let row = 0; row < gw.nRows; row++) {
             let hey = []
             for (let col = 0; col < gw.nCols; col++) {
-                const current = row == 0 && col == 0;
+                const current = row == 10 && col == 0;
                 hey.push(new GridWorldCell(row, col, current));
             }
             this.grid.push(hey)
@@ -96,4 +108,9 @@ const el = document.getElementById("gw")
 if (el) {
     const gwView = new GridWorldEnvView(gw, el);
     gwView.render()
+}
+const gwInfoEl = document.getElementById("gw-info")
+if (gwInfoEl) {
+    let gridWorldEnvInfoView = new GridWorldEnvInfoView(gw, gwInfoEl);
+    gridWorldEnvInfoView.render();
 }
