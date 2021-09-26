@@ -1,8 +1,9 @@
 
-class GridWorld {
+class GridWorldEnv {
 
-    nRows: number;
-    nCols: number;
+    public nRows: number;
+    public nCols: number;
+    public curPos: [number, number] = [0, 0];
 
     constructor(nRows: number, nCols: number) {
         this.nRows = nRows;
@@ -14,34 +15,43 @@ class GridWorld {
 class GridWorldCell {
     public row: number;
     public col: number;
+    public current: boolean;
+    public el: HTMLDivElement;
 
-    public constructor(row: number, col: number) {
+    public constructor(row: number, col: number, current: boolean) {
         this.row = row;
         this.col = col;
+        this.current = current;
+        this.el = document.createElement("div");
+        this.el.className = "gw-cell";
     }
 
     public render(): HTMLElement {
-        let el: HTMLDivElement = document.createElement("div");
-        el.className = "gw-cell"
-        el.innerHTML = "x";
-        return el;
+        this.el.innerHTML = this.current ? "X": "";
+        return this.el;
+    }
+
+    public setCurrent(status: boolean) {
+        this.current = status;
+        this.render();
     }
 }
 
-class GridWorldView {
+class GridWorldEnvView {
 
-    public gw: GridWorld;
+    public gw: GridWorldEnv;
     public el: HTMLElement;
     private grid: GridWorldCell[][]
 
-    constructor(gw: GridWorld, el: HTMLElement) {
+    constructor(gw: GridWorldEnv, el: HTMLElement) {
         this.gw = gw;
         this.el = el;
         this.grid = []
         for (let row = 0; row < gw.nRows; row++) {
             let hey = []
             for (let col = 0; col < gw.nCols; col++) {
-                hey.push(new GridWorldCell(row, col));
+                const current = row == 0 && col == 0;
+                hey.push(new GridWorldCell(row, col, current));
             }
             this.grid.push(hey)
         }
@@ -69,9 +79,9 @@ export function hello(world: string = 'world'): string {
     return `Hello ${world}! `;
 }
 
-const gw = new GridWorld(14, 14)
+const gw = new GridWorldEnv(14, 14)
 const el = document.getElementById("gw")
 if (el) {
-    const gwView = new GridWorldView(gw, el);
+    const gwView = new GridWorldEnvView(gw, el);
     gwView.render()
 }
