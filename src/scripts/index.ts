@@ -11,18 +11,51 @@ class GridWorld {
 
 }
 
+class GridWorldCell {
+    public row: number;
+    public col: number;
+
+    public constructor(row: number, col: number) {
+        this.row = row;
+        this.col = col;
+    }
+
+    public render(): HTMLElement {
+        let el: HTMLDivElement = document.createElement("div");
+        el.className = "gw-cell"
+        el.innerHTML = "x";
+        return el;
+    }
+}
+
 class GridWorldView {
 
-    gw: GridWorld;
-    el: HTMLElement;
+    public gw: GridWorld;
+    public el: HTMLElement;
+    private grid: GridWorldCell[][]
 
     constructor(gw: GridWorld, el: HTMLElement) {
         this.gw = gw;
         this.el = el;
+        this.grid = []
+        for (let row = 0; row < gw.nRows; row++) {
+            let hey = []
+            for (let col = 0; col < gw.nCols; col++) {
+                hey.push(new GridWorldCell(row, col));
+            }
+            this.grid.push(hey)
+        }
     }
 
-    render() {
-        this.el.innerHTML = "<p>yeah</p>"
+    public render(): HTMLElement {
+        let el2 = document.createElement("div")
+        for (let row = 0; row < gw.nRows; row++) {
+            for (let col = 0; col < gw.nCols; col++) {
+                el2.appendChild(this.grid[row][col].render());
+            }
+        }
+        this.el.appendChild(el2)
+        return this.el;
     }
 
 }
