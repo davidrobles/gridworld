@@ -50,9 +50,11 @@ class GridWorldView {
     public render(): HTMLElement {
         let el2 = document.createElement("div")
         for (let row = 0; row < gw.nRows; row++) {
+            let rowEl = document.createElement("div")
             for (let col = 0; col < gw.nCols; col++) {
-                el2.appendChild(this.grid[row][col].render());
+                rowEl.appendChild(this.grid[row][col].render());
             }
+            el2.appendChild(rowEl);
         }
         this.el.appendChild(el2)
         return this.el;
