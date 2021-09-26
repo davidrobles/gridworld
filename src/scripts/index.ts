@@ -45,18 +45,20 @@ class GridWorldView {
             }
             this.grid.push(hey)
         }
+        this.initGrid()
     }
 
-    public render(): HTMLElement {
-        let el2 = document.createElement("div")
+    private initGrid() {
         for (let row = 0; row < gw.nRows; row++) {
             let rowEl = document.createElement("div")
             for (let col = 0; col < gw.nCols; col++) {
                 rowEl.appendChild(this.grid[row][col].render());
             }
-            el2.appendChild(rowEl);
+            this.el.appendChild(rowEl);
         }
-        this.el.appendChild(el2)
+    }
+
+    public render(): HTMLElement {
         return this.el;
     }
 
