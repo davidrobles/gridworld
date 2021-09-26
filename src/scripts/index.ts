@@ -67,7 +67,7 @@ export function hello(world: string = 'world'): string {
     return `Hello ${world}! `;
 }
 
-const gw = new GridWorld(20, 20)
+const gw = new GridWorld(14, 14)
 const el = document.getElementById("gw")
 if (el) {
     const gwView = new GridWorldView(gw, el);
