@@ -6,3 +6,4 @@ export function hello(world: string = 'world'): string {
 }
 
 hello("yes");
+hello("yes");
